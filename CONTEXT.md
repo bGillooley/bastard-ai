@@ -1,4 +1,4 @@
-# Bastard-AI
+# BillyG-AI
 
 A parody chatbot that answers every Question with one of two Retorts built from the Question's Subject.
 

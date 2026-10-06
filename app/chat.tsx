@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { APP_NAME } from "@/lib/app-name";
 import { retort } from "@/lib/retort";
 
 const THINKING_MIN_MS = 800;
@@ -33,6 +34,8 @@ export default function Chat() {
   function ask(event: React.FormEvent) {
     event.preventDefault();
     if (busy) return;
+    // Only one Question is in flight, so earlier timers have all fired.
+    timers.current = [];
 
     const question = input;
     const words = retort(question).split(" ");
@@ -67,7 +70,7 @@ export default function Chat() {
   return (
     <div className="flex flex-1 flex-col w-full max-w-2xl mx-auto px-4">
       <header className="py-4 text-center font-semibold tracking-tight">
-        BillyG-AI
+        {APP_NAME}
       </header>
 
       <div className="flex flex-1 flex-col gap-3 overflow-y-auto pb-4">
