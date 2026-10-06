@@ -40,7 +40,8 @@ export default function Chat() {
     setMessages((prev) => [...prev, { role: "user", text: question }]);
     setThinking(true);
 
-    const thinkingMs = THINKING_MIN_MS + Math.random() * (THINKING_MAX_MS - THINKING_MIN_MS);
+    const thinkingMs =
+      THINKING_MIN_MS + Math.random() * (THINKING_MAX_MS - THINKING_MIN_MS);
     timers.current.push(
       setTimeout(() => {
         setThinking(false);
@@ -51,7 +52,10 @@ export default function Chat() {
           timers.current.push(
             setTimeout(() => {
               const text = words.slice(0, i + 1).join(" ");
-              setMessages((prev) => [...prev.slice(0, -1), { role: "bot", text }]);
+              setMessages((prev) => [
+                ...prev.slice(0, -1),
+                { role: "bot", text },
+              ]);
               if (i === words.length - 1) setStreaming(false);
             }, i * WORD_INTERVAL_MS),
           );
@@ -62,7 +66,9 @@ export default function Chat() {
 
   return (
     <div className="flex flex-1 flex-col w-full max-w-2xl mx-auto px-4">
-      <header className="py-4 text-center font-semibold tracking-tight">Bastard-AI</header>
+      <header className="py-4 text-center font-semibold tracking-tight">
+        BillyG-AI
+      </header>
 
       <div className="flex flex-1 flex-col gap-3 overflow-y-auto pb-4">
         {messages.length === 0 && !busy && (
@@ -80,11 +86,18 @@ export default function Chat() {
             {message.text}
           </div>
         ))}
-        {thinking && <div className="self-start px-1 py-2 text-zinc-500 animate-pulse">Thinking…</div>}
+        {thinking && (
+          <div className="self-start px-1 py-2 text-zinc-500 animate-pulse">
+            Thinking…
+          </div>
+        )}
         <div ref={bottom} />
       </div>
 
-      <form onSubmit={ask} className="sticky bottom-0 flex gap-2 bg-background py-4">
+      <form
+        onSubmit={ask}
+        className="sticky bottom-0 flex gap-2 bg-background py-4"
+      >
         <input
           ref={inputRef}
           value={input}
